@@ -1,4 +1,10 @@
+@import 'settings/reset';
+@import 'settings/fonts';
+@import 'settings/colors';
+@import 'navigation';
+
 body{
   background: url('../images/jeremy-bishop-8xznAGy4HcY-unsplash.jpg') top no-repeat;
   background-size: cover;
+  font-family: $fontMain;
 }

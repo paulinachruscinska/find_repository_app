@@ -1,8 +1,14 @@
 import './scss/main.scss';
+import Navigation from "./components/Navigation";
+import Main from "./components/MainPage";
+
 function App() {
-  return (
-    <h1>Hello</h1>
-  );
+    return (
+        <>
+            <Navigation/>
+            <Main/>
+        </>
+    );
 }
 
 export default App;
