@@ -1,0 +1,30 @@
+main{
+  margin: 5rem 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1{
+  font-size: 4rem;
+  text-align: center;
+  color:transparent;
+  position: relative;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(90deg,$colorLight,$colorPurple);
+
+}
+h2{
+  color: $colorPurple;
+  font-size: 3.5rem;
+  margin: -2.25rem 0 0;
+  position: relative;
+  z-index: 1;
+
+}
+input{
+  margin: 3rem 0;
+  padding: 1rem;
+  width: 80%;
+  border-radius: 999px;
+}
