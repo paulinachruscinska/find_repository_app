@@ -1,5 +1,10 @@
-export default function Id(){
+import Navigation from "./Navigation";
+
+export default function Id() {
     return (
-        <h1>Id</h1>
+        <>
+            <Navigation/>
+            <h1>Id</h1>
+        </>
     )
 }

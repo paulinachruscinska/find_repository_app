@@ -9,7 +9,9 @@ export default function Navigation(){
             {navData.map(({list,icon, link, id})=>{
                 return(
                     <div className='nav__list' key={id}>
-                        <FontAwesomeIcon className='icon' icon={icon}/>
+                        <Link to={link}>
+                            <FontAwesomeIcon className='icon' icon={icon}/>
+                        </Link>
                         <Link to={link} className='nav__list--item'>{list}</Link>
                     </div>
                 )
