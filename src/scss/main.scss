@@ -2,9 +2,12 @@
 @import 'settings/fonts';
 @import 'settings/colors';
 @import 'navigation';
+@import 'mainPage';
 
 body{
   background: url('../images/jeremy-bishop-8xznAGy4HcY-unsplash.jpg') top no-repeat;
-  background-size: cover;
+  background-size: 100%;
+  height: 100%;
   font-family: $fontMain;
+  word-break: break-word;
 }
