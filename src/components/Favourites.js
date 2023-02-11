@@ -5,7 +5,7 @@ export default function Favourites() {
     return (
         <>
             <Navigation/>
-            <h1>Favourites</h1>
+            <div className='header'>Favourites</div>
             <Link to='/favourites/:id'>Click</Link>
         </>
     )

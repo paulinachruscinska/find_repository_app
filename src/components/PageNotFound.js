@@ -4,7 +4,7 @@ export default function PageNotFound() {
     return (
         <>
             <Navigation/>
-            <h1>404</h1>
+            <div className='header'>Page not found</div>
         </>
     )
 }
