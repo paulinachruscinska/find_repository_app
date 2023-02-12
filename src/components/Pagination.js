@@ -2,7 +2,7 @@ export default function Pagination({changeAmountOfRepositoriesPerPage, previousP
 const amountOfRepositoriesPerPage = [5,10, 15, 30]
 return(
     <div className='pagination'>
-        <label for='pageNumbers'>Ilość wyników na stronie</label>
+        <label>Ilość wyników na stronie</label>
         <select name='pageNumbers'  onClick={changeAmountOfRepositoriesPerPage}>
             {amountOfRepositoriesPerPage.map(repository=> <option>{repository}</option>)}
         </select>
