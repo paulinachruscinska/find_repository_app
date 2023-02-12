@@ -20,7 +20,7 @@ export default function Repositories() {
 
     const previousPage = () => currentPage > 1 ? setCurrentPage(currentPage-1) : setCurrentPage(1);
     const nextPage = () => currentPage < pages ? setCurrentPage(currentPage+1) : setCurrentPage(pages);
-    const changeAmountOfRepositoriesPerPage =(number)=> setRepositoriesPerPage(number)
+    const changeAmountOfRepositoriesPerPage =(event)=> setRepositoriesPerPage(event.target.value)
 
     return (
         <section className='repositories'>
