@@ -6,7 +6,7 @@ export default function Repositories() {
     const [repository, setRepository] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [repositoriesPerPage, setRepositoriesPerPage] = useState(10);
-    const [isFavourite, setIsFavourite] = useState(false)
+    const [isFavourite, setIsFavourite] = useState([])
 
 
 
@@ -45,9 +45,14 @@ export default function Repositories() {
                             <td>{login}</td>
                             <td>{stargazers_count}</td>
                             <td>{created_at.match(/^.{10}/).join('')}</td>
-                            <td onClick={()=>{
-                                setIsFavourite(!isFavourite)
-                            }}><button >{!isFavourite? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button></td>
+                            <td><button onClick={(event)=>{
+                                event.preventDefault()
+                                if(isFavourite.includes(id)){
+                                    setIsFavourite(state=>state.filter(favouriteId => favouriteId !== id))
+                                } else{
+                                    setIsFavourite(state=>[...state, id])
+                                }
+                            }}>{!isFavourite.includes(id)? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button></td>
                         </tr>
                     )
                 })}
