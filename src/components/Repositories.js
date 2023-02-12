@@ -45,10 +45,9 @@ export default function Repositories() {
                             <td>{login}</td>
                             <td>{stargazers_count}</td>
                             <td>{created_at.match(/^.{10}/).join('')}</td>
-                            <td><button onClick={(event)=>{
-                                event.preventDefault()
+                            <td onClick={()=>{
                                 setIsFavourite(!isFavourite)
-                            }}>{!isFavourite? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button></td>
+                            }}><button >{!isFavourite? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button></td>
                         </tr>
                     )
                 })}
