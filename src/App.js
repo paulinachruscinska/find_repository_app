@@ -4,13 +4,13 @@ import Navigation from "./components/Navigation";
 import Main from "./components/MainPage";
 import Repositories from "./components/Repositories";
 
-function App() {
+function App({repositoriesInformation, setRepositoriesInformation}) {
     return (
         <>
             <Background/>
             <Navigation/>
             <Main/>
-            <Repositories/>
+            <Repositories repositoriesInformation={repositoriesInformation} setRepositoriesInformation={setRepositoriesInformation}/>
         </>
     );
 }

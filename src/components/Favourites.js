@@ -1,12 +1,19 @@
 import {Link} from "react-router-dom";
 import Navigation from "./Navigation";
 
-export default function Favourites() {
+export default function Favourites({repositoriesInformation}) {
     return (
         <>
             <Navigation/>
             <div className='header'>Favourites</div>
-            <Link to='/favourites/:id'>Click</Link>
+            {repositoriesInformation.map(item=>{
+                return(
+                    <Link to={'/favourites/'+ item.id}>
+                    <div className='header'>{item.name}</div>
+                    </Link>
+                )
+            })}
+
         </>
     )
 }
