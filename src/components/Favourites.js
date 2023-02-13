@@ -5,15 +5,16 @@ export default function Favourites({repositoriesInformation}) {
     return (
         <>
             <Navigation/>
-            <div className='header'>Favourites</div>
-            {repositoriesInformation.map(item=>{
-                return(
-                    <Link to={'/favourites/'+ item.id}>
-                    <div className='header'>{item.name}</div>
-                    </Link>
-                )
-            })}
-
+            <section className='favourites'>
+                <h2 className='header__additional'>Favourites</h2>
+                {repositoriesInformation.map(item => {
+                    return (
+                        <Link to={'/favourites/' + item.id} key={item.id}>
+                            <div className='text'>{item.name}</div>
+                        </Link>
+                    )
+                })}
+            </section>
         </>
     )
 }

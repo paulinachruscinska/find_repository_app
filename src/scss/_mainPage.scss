@@ -1,5 +1,5 @@
 main{
-  height: 100vh;
+  height: 60vh;
   margin: 0 4%;
   display: flex;
   flex-direction: column;
@@ -7,6 +7,12 @@ main{
   justify-content: center;
   position: relative;
   z-index: 2;
+  @include tablet{
+    margin: 0 50px;
+  }
+  @include desktop{
+    margin: 0 200px;
+  }
 }
 
 .header{
@@ -18,14 +24,21 @@ main{
   -webkit-background-clip: text;
   background-image: linear-gradient(90deg,$colorLight,$colorPurple);
 
+  @include desktop{
+    font-size: 6rem;
+  }
+
 }
-h2{
+.header__additional{
   color: $colorPurple;
   font-size: 3rem;
   margin: -2.25rem 0 0;
   position: relative;
   z-index: 1;
   font-family: $fontAdditional;
+  @include desktop{
+    font-size: 4rem;
+  }
 
 }
 input{

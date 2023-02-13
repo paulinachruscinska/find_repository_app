@@ -1,4 +1,79 @@
 .repositories{
+  font-family: $fontMain;
   position: relative;
   z-index: 2;
+  @include desktop{
+    margin: 0 200px;
+  }
 }
+table, th, td{
+  border: 1px solid $colorLight;
+  border-collapse: collapse;
+  //background: $colorBlue;
+}
+td{
+  border-top:none;
+  border-bottom:none;
+}
+tr:nth-of-type(even){
+  background: $colorPurpleBackground;
+
+}
+  table{
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    color: $colorLight;
+    thead{
+      font-size: 1.5rem;
+    }
+    th, td{
+      padding: 10px 10px;
+    }
+  }
+  .button__add-to-favourite, .button__previous{
+    width: 100px;
+    background: $colorLight;
+    color:$colorPurple;
+    padding: 10px;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    &:hover{
+      background: $colorPurpleBackground;
+      color:$colorLight;
+      transition: 0.5s ease;
+      cursor: pointer;
+    }
+  }
+  .buttons-previous-next{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button__previous{
+      width: 150px;
+      font-size: 1.25rem;
+      margin: 5px;
+    }
+  }
+  .pagination {
+    padding: 20px 0;
+
+    label {
+      color: $colorLight;
+      font-weight: 600;
+      padding-right: 20px;
+      font-size: 1.5rem;
+    }
+
+    select {
+      background-color: $colorLight;
+      border: thin solid $colorPurple;
+      border-radius: 4px;
+      display: inline-block;
+      font: inherit;
+      line-height: 1.25em;
+      padding: 0.5em 3.5em 0.5em 1em;
+    }
+  }

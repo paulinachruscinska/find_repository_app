@@ -3,12 +3,11 @@ import axios from "axios";
 import Pagination from "./Pagination";
 
 export default function Repositories({repositoriesInformation, setRepositoriesInformation}) {
-    const [search, setSearch]=useState('')
+    const [search, setSearch] = useState('')
     const [repository, setRepository] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [repositoriesPerPage, setRepositoriesPerPage] = useState(10);
     const [isFavourite, setIsFavourite] = useState([])
-
 
 
     useEffect(() => {
@@ -23,18 +22,15 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
         if (data.length !== 0) repositoriesInformation && JSON.parse(data)
     }, [])
 
-    const searchingRepositories=(e)=>{
+    const searchingRepositories = (e) => {
         e.preventDefault()
-        return search!=='' ?
-            setRepository(()=>repository.filter(({ name })=>{
+        return search !== '' ?
+            setRepository(() => repository.filter(({name}) => {
                 return name.startsWith(search)
             })) :
             setRepository(repository)
 
     }
-
-    
-
 
 
     const lastIndexOfRepository = currentPage * repositoriesPerPage;
@@ -53,61 +49,61 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
     return (
         <section className='repositories'>
             <form onSubmit={searchingRepositories}>
-                <input type='search' value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                <input type='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
                 <button type='submit'/>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nazwa repozytorium</th>
-                    <th>Właściciel</th>
-                    <th>Ilość gwiazdek</th>
-                    <th>Data utworzenia</th>
-                    <th>Ulubione</th>
-                </tr>
-                </thead>
-                <tbody>
-                {currentRepositories.map(({
-                                              id,
-                                              name,
-                                              owner: {login},
-                                              stargazers_count,
-                                              created_at,
-                                              html_url,
-                                              description,
-                                          }) => {
-                    return (
-                        <tr key={id}>
-                            <td>{id}</td>
-                            <td>{name}</td>
-                            <td>{login}</td>
-                            <td>{stargazers_count}</td>
-                            <td>{created_at.match(/^.{10}/).join('')}</td>
-                            <td>
-                                <button onClick={(event) => {
-                                    event.preventDefault()
-                                    if (isFavourite.includes(id, name)) {
-                                        setIsFavourite(state => state.filter(favouriteId => favouriteId !== id))
-                                        setRepositoriesInformation(state => state.filter(favouriteName => favouriteName !== name))
-                                    } else {
-                                        setIsFavourite(state => [...state, id])
-                                        setRepositoriesInformation(state => [...state, {
-                                            'id': id,
-                                            'owner': login,
-                                            'name': name,
-                                            'stargazers_count': stargazers_count,
-                                            'created_at': created_at,
-                                            'html_url': html_url,
-                                            'description': description
-                                        }])
-                                    }
-                                }}>{!isFavourite.includes(id) ? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button>
-                            </td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nazwa repozytorium</th>
+                        <th>Właściciel</th>
+                        <th>Ilość gwiazdek</th>
+                        <th>Data utworzenia</th>
+                        <th>Ulubione</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {currentRepositories.map(({
+                                                  id,
+                                                  name,
+                                                  owner: {login},
+                                                  stargazers_count,
+                                                  created_at,
+                                                  html_url,
+                                                  description,
+                                              }) => {
+                        return (
+                            <tr key={id}>
+                                <td>{id}</td>
+                                <td>{name}</td>
+                                <td>{login}</td>
+                                <td>{stargazers_count}</td>
+                                <td>{created_at.match(/^.{10}/).join('')}</td>
+                                <td>
+                                    <button  className='button__add-to-favourite' onClick={(event) => {
+                                        event.preventDefault()
+                                        if (isFavourite.includes(id, name)) {
+                                            setIsFavourite(state => state.filter(favouriteId => favouriteId !== id))
+                                            setRepositoriesInformation(state => state.filter(favouriteName => favouriteName !== name))
+                                        } else {
+                                            setIsFavourite(state => [...state, id])
+                                            setRepositoriesInformation(state => [...state, {
+                                                'id': id,
+                                                'owner': login,
+                                                'name': name,
+                                                'stargazers_count': stargazers_count,
+                                                'created_at': created_at,
+                                                'html_url': html_url,
+                                                'description': description
+                                            }])
+                                        }
+                                    }}>{!isFavourite.includes(id) ? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
             </form>
             <Pagination
                 changeAmountOfRepositoriesPerPage={changeAmountOfRepositoriesPerPage}

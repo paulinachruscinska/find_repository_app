@@ -1,10 +1,12 @@
 @import 'settings/reset';
 @import 'settings/fonts';
 @import 'settings/colors';
+@import 'settings/devices';
 @import 'background';
 @import 'navigation';
 @import 'mainPage';
 @import 'repositories';
+@import 'favourites';
 
 body{
   background: $colorMain;
