@@ -14,7 +14,10 @@ function Index(){
             <Routes>
                 <Route path='/'  element={<App repositoriesInformation={repositoriesInformation} setRepositoriesInformation={setRepositoriesInformation}/>}/>
                 <Route path='/favourites'  element={<Favourites repositoriesInformation={repositoriesInformation}/>}/>
-                <Route path={'favourites/'+ repositoriesInformation.map(item=>item.id)}  element={<Id repositoriesInformation={repositoriesInformation}/>}/>
+                {repositoriesInformation.map(item=>{
+                    return <Route path={'favourites/'+ item.id}  element={<Id repositoriesInformation={repositoriesInformation}/>}/>
+                })}
+
                 <Route path='*'  element={<PageNotFound/>}/>
             </Routes>
         </Router>
