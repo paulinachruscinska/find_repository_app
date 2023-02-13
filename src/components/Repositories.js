@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "./Pagination";
 
-export default function Repositories() {
+export default function Repositories({repositoriesInformation, setRepositoriesInformation}) {
     const [repository, setRepository] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [repositoriesPerPage, setRepositoriesPerPage] = useState(10);
@@ -14,6 +14,14 @@ export default function Repositories() {
         axios.get("https://api.github.com/search/repositories?q=$%7Bquery%7D").then(response => setRepository(response.data.items))
     }, [])
 
+
+    useEffect(()=>window.localStorage.setItem('repository', JSON.stringify(repositoriesInformation)),[repositoriesInformation])
+
+    useEffect(()=>{
+        const data = window.localStorage.getItem('repository')
+        if(data.length!==0) repositoriesInformation && JSON.parse(data)
+    },[])
+
     const lastIndexOfRepository = currentPage * repositoriesPerPage;
     const firstIndexOfRepository = lastIndexOfRepository - repositoriesPerPage;
     const currentRepositories = repository.slice(firstIndexOfRepository, lastIndexOfRepository)
@@ -21,10 +29,14 @@ export default function Repositories() {
 
     const previousPage = () => currentPage > 1 ? setCurrentPage(currentPage-1) : setCurrentPage(1);
     const nextPage = () => currentPage < pages ? setCurrentPage(currentPage+1) : setCurrentPage(pages);
-    const changeAmountOfRepositoriesPerPage =(event)=> setRepositoriesPerPage(event.target.value)
+    const changeAmountOfRepositoriesPerPage =(event)=>{
+        event.preventDefault()
+        setRepositoriesPerPage(event.target.value)
+    }
 
     return (
         <section className='repositories'>
+            <input type='search'/>
             <table>
                 <thead>
                 <tr>
@@ -37,7 +49,7 @@ export default function Repositories() {
                 </tr>
                 </thead>
                 <tbody>
-                {currentRepositories.map(({id, name, owner: {login}, stargazers_count, created_at}) => {
+                {currentRepositories.map(({id, name, owner: {login}, stargazers_count, created_at, html_url, description, }) => {
                     return (
                         <tr key={id}>
                             <td>{id}</td>
@@ -47,10 +59,12 @@ export default function Repositories() {
                             <td>{created_at.match(/^.{10}/).join('')}</td>
                             <td><button onClick={(event)=>{
                                 event.preventDefault()
-                                if(isFavourite.includes(id)){
+                                if(isFavourite.includes(id,name)){
                                     setIsFavourite(state=>state.filter(favouriteId => favouriteId !== id))
+                                    setRepositoriesInformation(state=>state.filter(favouriteName=> favouriteName !== name))
                                 } else{
                                     setIsFavourite(state=>[...state, id])
+                                    setRepositoriesInformation(state=>[...state, {'id': id, 'owner': login,'name': name, 'stargazers_count' : stargazers_count, 'created_at': created_at, 'html_url': html_url, 'description': description}])
                                 }
                             }}>{!isFavourite.includes(id)? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button></td>
                         </tr>
@@ -62,6 +76,7 @@ export default function Repositories() {
                 changeAmountOfRepositoriesPerPage ={changeAmountOfRepositoriesPerPage}
                 previousPage={previousPage}
                 nextPage={nextPage}
+                repositoriesPerPage={repositoriesPerPage}
             />
         </section>
     )
