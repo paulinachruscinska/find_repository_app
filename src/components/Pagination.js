@@ -11,8 +11,10 @@ export default function Pagination({changeAmountOfRepositoriesPerPage, previousP
                     <option>30</option>
                 </select>
             </form>
-            <button onClick={previousPage} className='previous'>Poprzednia</button>
-            <button onClick={nextPage} className='previous'>Następna</button>
+            <div className='buttons-previous-next'>
+            <button onClick={previousPage} className='button__previous'>Poprzednia</button>
+            <button onClick={nextPage} className='button__previous'>Następna</button>
+            </div>
         </div>
     )
 }
