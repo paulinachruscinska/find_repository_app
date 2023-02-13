@@ -3,6 +3,7 @@ import axios from "axios";
 import Pagination from "./Pagination";
 
 export default function Repositories({repositoriesInformation, setRepositoriesInformation}) {
+    const [search, setSearch]=useState('')
     const [repository, setRepository] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [repositoriesPerPage, setRepositoriesPerPage] = useState(10);
@@ -15,28 +16,45 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
     }, [])
 
 
-    useEffect(()=>window.localStorage.setItem('repository', JSON.stringify(repositoriesInformation)),[repositoriesInformation])
+    useEffect(() => window.localStorage.setItem('repository', JSON.stringify(repositoriesInformation)), [repositoriesInformation])
 
-    useEffect(()=>{
+    useEffect(() => {
         const data = window.localStorage.getItem('repository')
-        if(data.length!==0) repositoriesInformation && JSON.parse(data)
-    },[])
+        if (data.length !== 0) repositoriesInformation && JSON.parse(data)
+    }, [])
+
+    const searchingRepositories=(e)=>{
+        e.preventDefault()
+        return search!=='' ?
+            setRepository(()=>repository.filter(({ name })=>{
+                return name.startsWith(search)
+            })) :
+            setRepository(repository)
+
+    }
+
+    
+
+
 
     const lastIndexOfRepository = currentPage * repositoriesPerPage;
     const firstIndexOfRepository = lastIndexOfRepository - repositoriesPerPage;
     const currentRepositories = repository.slice(firstIndexOfRepository, lastIndexOfRepository)
     const pages = repository.length / repositoriesPerPage
 
-    const previousPage = () => currentPage > 1 ? setCurrentPage(currentPage-1) : setCurrentPage(1);
-    const nextPage = () => currentPage < pages ? setCurrentPage(currentPage+1) : setCurrentPage(pages);
-    const changeAmountOfRepositoriesPerPage =(event)=>{
+    const previousPage = () => currentPage > 1 ? setCurrentPage(currentPage - 1) : setCurrentPage(1);
+    const nextPage = () => currentPage < pages ? setCurrentPage(currentPage + 1) : setCurrentPage(pages);
+    const changeAmountOfRepositoriesPerPage = (event) => {
         event.preventDefault()
         setRepositoriesPerPage(event.target.value)
     }
 
+
     return (
         <section className='repositories'>
-            <input type='search'/>
+            <form onSubmit={searchingRepositories}>
+                <input type='search' value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                <button type='submit'/>
             <table>
                 <thead>
                 <tr>
@@ -49,7 +67,15 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
                 </tr>
                 </thead>
                 <tbody>
-                {currentRepositories.map(({id, name, owner: {login}, stargazers_count, created_at, html_url, description, }) => {
+                {currentRepositories.map(({
+                                              id,
+                                              name,
+                                              owner: {login},
+                                              stargazers_count,
+                                              created_at,
+                                              html_url,
+                                              description,
+                                          }) => {
                     return (
                         <tr key={id}>
                             <td>{id}</td>
@@ -57,23 +83,34 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
                             <td>{login}</td>
                             <td>{stargazers_count}</td>
                             <td>{created_at.match(/^.{10}/).join('')}</td>
-                            <td><button onClick={(event)=>{
-                                event.preventDefault()
-                                if(isFavourite.includes(id,name)){
-                                    setIsFavourite(state=>state.filter(favouriteId => favouriteId !== id))
-                                    setRepositoriesInformation(state=>state.filter(favouriteName=> favouriteName !== name))
-                                } else{
-                                    setIsFavourite(state=>[...state, id])
-                                    setRepositoriesInformation(state=>[...state, {'id': id, 'owner': login,'name': name, 'stargazers_count' : stargazers_count, 'created_at': created_at, 'html_url': html_url, 'description': description}])
-                                }
-                            }}>{!isFavourite.includes(id)? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button></td>
+                            <td>
+                                <button onClick={(event) => {
+                                    event.preventDefault()
+                                    if (isFavourite.includes(id, name)) {
+                                        setIsFavourite(state => state.filter(favouriteId => favouriteId !== id))
+                                        setRepositoriesInformation(state => state.filter(favouriteName => favouriteName !== name))
+                                    } else {
+                                        setIsFavourite(state => [...state, id])
+                                        setRepositoriesInformation(state => [...state, {
+                                            'id': id,
+                                            'owner': login,
+                                            'name': name,
+                                            'stargazers_count': stargazers_count,
+                                            'created_at': created_at,
+                                            'html_url': html_url,
+                                            'description': description
+                                        }])
+                                    }
+                                }}>{!isFavourite.includes(id) ? 'Dodaj do ulubionych' : 'Usuń z ulubionych'}</button>
+                            </td>
                         </tr>
                     )
                 })}
                 </tbody>
             </table>
+            </form>
             <Pagination
-                changeAmountOfRepositoriesPerPage ={changeAmountOfRepositoriesPerPage}
+                changeAmountOfRepositoriesPerPage={changeAmountOfRepositoriesPerPage}
                 previousPage={previousPage}
                 nextPage={nextPage}
                 repositoriesPerPage={repositoriesPerPage}
