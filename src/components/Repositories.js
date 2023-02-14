@@ -9,6 +9,7 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
     const [repositoriesPerPage, setRepositoriesPerPage] = useState(10);
     const [isFavourite, setIsFavourite] = useState([]);
 
+
     //promise
     useEffect(() => {
         const fetchRepositories = () => {
@@ -19,13 +20,11 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
     }, [])
 
 
-    useEffect(() => window.localStorage.setItem('repository', JSON.stringify(repositoriesInformation)), [repositoriesInformation])
 
-    useEffect(() => {
-        const data = window.localStorage.getItem('repository')
-        if (data.length !== 0) repositoriesInformation && JSON.parse(data)
-    }, [])
 
+
+
+console.log('repositoriesInformation', repositoriesInformation);
 
 
     const lastIndexOfRepository = currentPage * repositoriesPerPage;
@@ -81,9 +80,9 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
                             <td>
                                 <button className='button__add-to-favourite' onClick={(event) => {
                                     event.preventDefault()
-                                    if (isFavourite.includes(id, name)) {
+                                    if (isFavourite.includes(id)) {
                                         setIsFavourite(state => state.filter(favouriteId => favouriteId !== id))
-                                        setRepositoriesInformation(state => state.filter(favouriteName => favouriteName !== name))
+                                        setRepositoriesInformation(state => state.filter(item => item.id!== id))
                                     } else {
                                         setIsFavourite(state => [...state, id])
                                         setRepositoriesInformation(state => [...state, {
