@@ -1,22 +1,24 @@
 import Navigation from "./Navigation";
+import {useParams} from "react-router-dom";
 
 export default function Id({repositoriesInformation}) {
+       const {id} = useParams()
     return (
         <>
             <Navigation/>
-            <div>
-                {repositoriesInformation.map(item=>{
+            <section className='favourites__id'>
+                {repositoriesInformation.filter(item=>item.id===parseFloat(id)).map(item=>{
                     return(
                         <>
-                        <div>{item.name} by {item.owner}</div>
-                        <div>{item.description}</div>
+                        <p className='text'>{item.name} by {item.owner}</p>
+                        <p className='text'>{item.description}</p>
                             <a href={item.html_url}>url</a>
-                    <div>{item.created_at}</div>
-                    <div>{item.stargazers_count}</div>
+                    <p className='text'>{item.created_at}</p>
+                    <p className='text'>{item.stargazers_count}</p>
                         </>
                     )
                 })}
-            </div>
+            </section>
         </>
     )
 }
