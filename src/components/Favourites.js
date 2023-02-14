@@ -6,7 +6,7 @@ export default function Favourites({repositoriesInformation}) {
         <>
             <Navigation/>
             <section className='favourites'>
-                <h2 className='header__additional'>Favourites</h2>
+                <h2 className='header__additional'>Ulubione repozytoria</h2>
                 {repositoriesInformation.map(item => {
                     return (
                         <Link to={'/favourites/' + item.id} key={item.id}>

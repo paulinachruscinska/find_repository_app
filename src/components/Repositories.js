@@ -45,6 +45,7 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
     return (
         <section className='repositories'>
             <input type='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <p className='text'>{`Strona ${currentPage} z ${pages}`}</p>
             <table>
                 <thead>
                 <tr>
@@ -57,7 +58,11 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
                 </tr>
                 </thead>
                 <tbody>
-                {currentRepositories.map(({
+                {!search
+                    ? (<tr>
+                        <td colSpan='6'>Brak wyników wyszukiwania</td>
+                    </tr>)
+                    : currentRepositories.map(({
                                               id,
                                               name,
                                               owner: {login},

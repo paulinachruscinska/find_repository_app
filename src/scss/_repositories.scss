@@ -25,10 +25,10 @@ tr:nth-of-type(even){
     margin: 0 auto;
     text-align: center;
     color: $colorLight;
-    thead{
+    thead, tr{
       font-size: 1.5rem;
     }
-    th, td{
+    th, tr, td{
       padding: 10px 10px;
     }
   }
