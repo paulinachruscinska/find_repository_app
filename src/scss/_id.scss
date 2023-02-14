@@ -1,6 +1,19 @@
 .favourites__id{
-    padding:10vh 0;
+    padding:10vh 4%;
 }
 .text{
     color:$colorLight;
+}
+.text-bold{
+    font-size: 1rem;
+    font-weight: 600;
+    color:$colorLight;
+    padding-right: 20px;
+    @include desktop {
+        font-size: 1.5rem;
+    }
+}
+.favourites__id--text{
+    display: flex;
+    flex-wrap: wrap;
 }

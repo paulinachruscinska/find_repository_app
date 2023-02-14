@@ -7,13 +7,13 @@ export default function Favourites({repositoriesInformation}) {
             <Navigation/>
             <section className='favourites'>
                 <h2 className='header__additional'>Ulubione repozytoria</h2>
-                {repositoriesInformation.map(item => {
-                    return (
-                        <Link to={'/favourites/' + item.id} key={item.id}>
-                            <div className='text'>{item.name}</div>
-                        </Link>
-                    )
-                })}
+                    {repositoriesInformation.map(item => {
+                        return (
+                                <Link to={'/favourites/' + item.id} key={item.id}>
+                                    <div>{item.name}</div>
+                                </Link>
+                        )
+                    })}
             </section>
         </>
     )

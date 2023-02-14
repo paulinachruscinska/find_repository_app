@@ -1,8 +1,17 @@
 .favourites{
-  padding: 10vh 0;
-  height: 90vh;
+  padding: 20vh 4%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  a{
+    -webkit-background-clip: text;
+    background-image: linear-gradient(90deg,$colorLight,$colorPurple);
+    color: transparent;
+    font-family: $fontAdditional;
+    font-size: 1.5rem;
+    padding: 1.5rem 0;
+    text-decoration: none;
+
+  }
 }
