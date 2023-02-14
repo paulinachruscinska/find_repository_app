@@ -3,7 +3,7 @@ export default function Pagination({changeAmountOfRepositoriesPerPage, previousP
     return (
         <div className='pagination'>
             <form onChange={changeAmountOfRepositoriesPerPage}>
-                <label>Ilość wyników na stronie</label>
+                <label className='text-favourites'>Ilość wyników na stronie</label>
                 <select name='pageNumbers' >
                     <option>5</option>
                     <option selected>10</option>

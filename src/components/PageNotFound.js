@@ -4,7 +4,9 @@ export default function PageNotFound() {
     return (
         <>
             <Navigation/>
-            <div className='header'>Page not found</div>
+            <section className='favourites'>
+                <div className='header__additional'>Ups, nie znaleziono</div>
+            </section>
         </>
     )
 }

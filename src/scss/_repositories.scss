@@ -1,9 +1,18 @@
 .repositories{
+  padding: 1rem 4%;
   font-family: $fontMain;
   position: relative;
   z-index: 2;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   @include desktop{
-    margin: 0 200px;
+    margin: 0 auto;
+  }
+  .text{
+    align-self: flex-start;
   }
 }
 table, th, td{
@@ -22,24 +31,30 @@ tr:nth-of-type(even){
   table{
     max-width: 100%;
     width: 100%;
-    margin: 0 auto;
     text-align: center;
     color: $colorLight;
+    margin: 1rem 0 3rem;
     thead, tr{
-      font-size: 1.5rem;
+      font-size: 1rem;
+      @include desktop {
+        font-size: 1.5rem;
+      }
     }
     th, tr, td{
       padding: 10px 10px;
     }
   }
   .button__add-to-favourite, .button__previous{
-    width: 100px;
+
     background: $colorLight;
     color:$colorPurple;
     padding: 10px;
     border: none;
     border-radius: 999px;
     font-weight: 600;
+    @include desktop{
+      width: 100px;
+    }
     &:hover{
       background: $colorPurpleBackground;
       color:$colorLight;
@@ -53,19 +68,31 @@ tr:nth-of-type(even){
     align-items: center;
     .button__previous{
       width: 150px;
-      font-size: 1.25rem;
+      font-size: 1rem;
       margin: 5px;
+      @include desktop{
+        font-size: 1.25rem;
+      }
     }
   }
   .pagination {
-    padding: 20px 0;
-
-    label {
-      color: $colorLight;
-      font-weight: 600;
-      padding-right: 20px;
-      font-size: 1.5rem;
+    padding: 20px 4%;
+    max-width: 1000px;
+    form{
+      padding-bottom: 1rem;
     }
+
+    }
+.text-favourites {
+  color: $colorLight;
+  font-weight: 600;
+  padding-right: 20px;
+  font-size: 1rem;
+  text-decoration: none;
+  @include desktop {
+    font-size: 1.5rem;
+  }
+}
 
     select {
       background-color: $colorLight;
@@ -76,4 +103,4 @@ tr:nth-of-type(even){
       line-height: 1.25em;
       padding: 0.5em 3.5em 0.5em 1em;
     }
-  }
+
