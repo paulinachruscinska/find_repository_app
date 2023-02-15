@@ -15,6 +15,7 @@ function Index(){
         return initialValue || "";
     })
 
+    //localStorage dla repositoriesInformation
     useEffect(()=>{
         window.localStorage.setItem('repository', JSON.stringify(repositoriesInformation))
     },[repositoriesInformation])
