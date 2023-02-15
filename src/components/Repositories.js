@@ -2,12 +2,16 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "./Pagination";
 
-export default function Repositories({repositoriesInformation, setRepositoriesInformation}) {
+export default function Repositories({setRepositoriesInformation}) {
     const [search, setSearch] = useState('')
     const [repository, setRepository] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [repositoriesPerPage, setRepositoriesPerPage] = useState(10);
-    const [isFavourite, setIsFavourite] = useState([]);
+    const [isFavourite, setIsFavourite] = useState(()=>{
+        const saved = window.localStorage.getItem('favourite')
+        const initialValue = JSON.parse(saved)
+        return initialValue || ""
+    });
 
 
     //promise
@@ -19,19 +23,17 @@ export default function Repositories({repositoriesInformation, setRepositoriesIn
         fetchRepositories()
     }, [])
 
-
-
-
-
-
-console.log('repositoriesInformation', repositoriesInformation);
-
+    //localStorage dla isFavourite
+    useEffect(()=>{
+        window.localStorage.setItem('favourite', JSON.stringify(isFavourite))
+    },[isFavourite])
 
     const lastIndexOfRepository = currentPage * repositoriesPerPage;
     const firstIndexOfRepository = lastIndexOfRepository - repositoriesPerPage;
     //filtrowanie i paginacja w jednym
-    const currentRepositories = repository.filter(({name}) => name.includes(search)).slice(firstIndexOfRepository, lastIndexOfRepository)
-    const pages = repository.length / repositoriesPerPage
+    const searchedRepositories = search==='' ? [] : repository.filter(({name})=>name.includes(search))
+    const currentRepositories = searchedRepositories.slice(firstIndexOfRepository, lastIndexOfRepository)
+    const pages = Math.ceil(searchedRepositories.length / repositoriesPerPage)>0 ?Math.ceil(searchedRepositories.length / repositoriesPerPage): '-' ;
 
     const previousPage = () => currentPage > 1 ? setCurrentPage(currentPage - 1) : setCurrentPage(1);
     const nextPage = () => currentPage < pages ? setCurrentPage(currentPage + 1) : setCurrentPage(pages);
@@ -40,10 +42,9 @@ console.log('repositoriesInformation', repositoriesInformation);
         setRepositoriesPerPage(event.target.value)
     }
 
-
     return (
         <section className='repositories'>
-            <input type='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <input type='text' value={search} onChange={(e) => setSearch(e.target.value)}/>
             <p className='text'>{`Strona ${currentPage} z ${pages}`}</p>
             <table>
                 <thead>
