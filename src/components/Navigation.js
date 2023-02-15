@@ -9,14 +9,13 @@ export default function Navigation() {
             <div className='nav__list'>
                 {navData.map(({list, icon, link, id}) => {
                     return (
-                        <div className='nav__list--items'>
+                        <div className='nav__list--items' key={id}>
                             <Link to={link}>
                                 <FontAwesomeIcon className='icon' icon={icon}/>
                                 <p className='nav__list--item'>{list}</p>
                             </Link>
                         </div>
                     )
-
                 })}
             </div>
         </nav>
