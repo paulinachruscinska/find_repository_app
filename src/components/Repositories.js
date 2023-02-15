@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "./Pagination";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCaretDown, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 
 export default function Repositories({setRepositoriesInformation}) {
     const [search, setSearch] = useState('')
@@ -12,6 +14,9 @@ export default function Repositories({setRepositoriesInformation}) {
         const initialValue = JSON.parse(saved)
         return initialValue || ""
     });
+    const [sorted, setSorted] = useState({ sorted: "stargazers_count", reversed: false });
+    const [isChangeIcon, setChangeIcon] = useState(false)
+
 
 
     //promise
@@ -41,6 +46,26 @@ export default function Repositories({setRepositoriesInformation}) {
         event.preventDefault()
         setRepositoriesPerPage(event.target.value)
     }
+    console.log(currentRepositories)
+
+
+
+    //sortowanie
+    const sortingStars = () => {
+        const repositoryCopy = [...repository];
+        repositoryCopy.sort((a, b) => {
+            if (sorted.reversed) {
+                setChangeIcon(true)
+                return a.stargazers_count - b.stargazers_count;
+            } else{
+                setChangeIcon(false)
+                return b.stargazers_count - a.stargazers_count;
+            }
+        })
+        setRepository(repositoryCopy);
+        setSorted({ sorted: "stargazers_count", reversed: !sorted.reversed });
+    };
+
 
     return (
         <section className='repositories'>
@@ -51,8 +76,10 @@ export default function Repositories({setRepositoriesInformation}) {
                 <tr>
                     <th>ID</th>
                     <th>Nazwa repozytorium</th>
-                    <th>Właściciel</th>
-                    <th>Ilość gwiazdek</th>
+                    <th>Właściciel </th>
+                    <th onClick={sortingStars} >Ilość gwiazdek
+                        {!isChangeIcon? <FontAwesomeIcon  icon={faCaretDown}/> : <FontAwesomeIcon icon={faCaretUp}/>}
+                    </th>
                     <th>Data utworzenia</th>
                     <th>Ulubione</th>
                 </tr>
