@@ -13,7 +13,8 @@
 
 
 <br/>
-**Aplikacja Znajdź repozytorium umożliwia wyszukanie repozytoriów, wraz z możliwością oznaczenia ich jako ulubionych.  **
+
+ **Aplikacja ZNAJDŹ REPOZYTORIUM umożliwia wyszukanie repozytoriów, wraz z możliwością oznaczenia ich jako ulubionych.**
 <br/>
 Aplikacja pobiera dane z publicznego API GitHub. Wyniki wyszukiwania repozytoriów są przedstawione w postaci tabeli, która zawiera podstawowe informacje odnośnie danego repozytorium. Możliwe jest dodanie repozytorium do ulubionych, które zostaje zapisane w zakładce 'ulubione' ( po klinięciu wybranego repo pojawia się zakładka zawierająca szczegółowe informacje).
 <br/>
