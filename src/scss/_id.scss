@@ -1,5 +1,7 @@
 .favourites__id{
     padding:10vh 4%;
+    position: relative;
+    z-index: 2;
 }
 .text{
     color:$colorLight;
@@ -15,5 +17,6 @@
 }
 .favourites__id--text{
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
 }

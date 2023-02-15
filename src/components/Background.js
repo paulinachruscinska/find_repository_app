@@ -6,7 +6,7 @@ export default function Background(){
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536" preserveAspectRatio="xMidYMax slice">
                     <g  transform="translate(55 42)">
                         <g id="snow-bottom-layer">
-                            {backgroundDataBottom.map(({cx, cy,rx,ry})=><ellipse cx={cx} cy={cy} rx={rx} ry={ry}/>)}
+                            {backgroundDataBottom.map(({cx, cy,rx,ry} , index)=><ellipse key={index} cx={cx} cy={cy} rx={rx} ry={ry}/>)}
                         </g>
                     </g>
                     <g transform="translate(65 63)">

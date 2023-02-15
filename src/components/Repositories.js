@@ -28,6 +28,17 @@ export default function Repositories({setRepositoriesInformation}) {
         fetchRepositories()
     }, [])
 
+    //sessionStorage dla search
+    useEffect(()=>{
+        if(window.sessionStorage.getItem('searching')){
+            setSearch(window.sessionStorage.getItem('searching'))
+        }
+    },[])
+
+    useEffect(()=>{
+        window.sessionStorage.setItem('searching', search)
+    },[search])
+
     //localStorage dla isFavourite
     useEffect(()=>{
         window.localStorage.setItem('favourite', JSON.stringify(isFavourite))
@@ -35,6 +46,7 @@ export default function Repositories({setRepositoriesInformation}) {
 
     const lastIndexOfRepository = currentPage * repositoriesPerPage;
     const firstIndexOfRepository = lastIndexOfRepository - repositoriesPerPage;
+
     //filtrowanie i paginacja w jednym
     const searchedRepositories = search==='' ? [] : repository.filter(({name})=>name.includes(search))
     const currentRepositories = searchedRepositories.slice(firstIndexOfRepository, lastIndexOfRepository)
@@ -46,7 +58,6 @@ export default function Repositories({setRepositoriesInformation}) {
         event.preventDefault()
         setRepositoriesPerPage(event.target.value)
     }
-    console.log(currentRepositories)
 
 
 
@@ -104,7 +115,7 @@ export default function Repositories({setRepositoriesInformation}) {
                             <td>{name}</td>
                             <td>{login}</td>
                             <td>{stargazers_count}</td>
-                            <td>{created_at.match(/^.{10}/).join('')}</td>
+                            <td>{new Date(created_at).toLocaleString().match(/^.{10}/).join('')}</td>
                             <td>
                                 <button className='button__add-to-favourite' onClick={(event) => {
                                     event.preventDefault()
